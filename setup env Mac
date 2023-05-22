@@ -1,0 +1,29 @@
+link refer : https://getgrav.org/blog/macos-ventura-apache-mysql-vhost-apc
+MySQL
+1. Install mysql
+  brew update
+  brew install mariadb
+2. After a successful installation, you can start the server ane ensure it autostarts in the future with:
+  brew services start mariadb
+3.You must change MySQL server password and secure your installation. The simplest way to do this is to use the provided script:
+  sudo /opt/homebrew/bin/mysql_secure_installation
+II change sphp 8.0 to the version you want to install xdebug for (8.0+)
+    sphp 8.0
+    pecl uninstall -r xdebug
+    pecl install xdebug
+ Xdebug Configuration
+You will now need to remove the zend_extension="xdebug.so" entry that PECL adds to the top of your php.ini. So edit this file and remove the top line. In this example we will use 7.2 but it's the same procedure for each version of PHP.
+code /opt/homebrew/etc/php/7.2/php.ini
+Once that line is removed, we can add a new file with a proper entry to the recently bulit xdebug.so library:
+[xdebug]
+zend_extension="xdebug.so"
+xdebug.mode=debug
+=====================
+[xdebug]
+zend_extension="xdebug.so"
+xdebug.remote_enable=1
+xdebug.remote_host=localhost
+xdebug.remote_handler=dbgp
+xdebug.remote_port=9000
+  
+  
